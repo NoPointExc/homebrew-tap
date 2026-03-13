@@ -2,8 +2,8 @@ class Dbc < Formula
   desc "Dollar Calculator CLI Tool"
   homepage "https://github.com/NoPointExc/dbc"
   url "https://github.com/NoPointExc/dbc/archive/refs/heads/main.tar.gz"
-  version "0.1.7" # Manually setting version since we're tracking main
-  sha256 "a096152d5c79809d6dfe1c0129fd176b0de5cb801a274e98ec7c7a3c4fac2d16"
+  version "0.1.8" # Manually setting version since we're tracking main
+  sha256 "823d92a6f5f44ed98a0576996de3dca4450d4ed10e35bdd60c737537453a1a83"
   license "MIT"
 
   depends_on "rust" => :build
