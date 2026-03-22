@@ -1,20 +1,25 @@
 class Dbc < Formula
-  desc "Dollar Calculator CLI Tool"
+  desc "Dollar Calculator with Real-Time Stock Prices"
   homepage "https://github.com/NoPointExc/dbc"
-  url "https://github.com/NoPointExc/dbc/archive/refs/heads/main.tar.gz"
-  version "0.1.10" # Manually setting version since we're tracking main
-  sha256 "3f6679071352575831444c77d8b1566ec02e85819f0bff68feba2594a44a74fd"
+  url "https://github.com/NoPointExc/dbc/archive/refs/tags/v2.0.0.tar.gz"
+  version "2.0.0"
+  sha256 "e1da63368aaef2ffb50353516c8979b526237f94d2efdba3c8dabe6014492bfb"
   license "MIT"
 
   depends_on "rust" => :build
 
   def install
-    # Ensure we are in the dbc directory if needed, but since the repo IS the tool, we just build
+    # Build from the dbc directory within the archive if it's there
+    # GitHub archives often have a top-level directory named after the repo and tag
+    # If the workspace structure is flat, we just build from the root
     system "cargo", "install", *std_cargo_args
   end
 
   test do
-    # Simple test to verify the binary works
+    # Verify basics
     assert_match "$150.00", shell_output("#{bin}/dbc '$100.00 + $50'").strip
+    # Verify stock symbol tokenization (network fetch might fail in sandbox, so we just check it runs)
+    # But for Homebrew test, we prefer something that doesn't need internet
+    assert_match "$200.00", shell_output("#{bin}/dbc 'max($100, $200)'").strip
   end
 end
